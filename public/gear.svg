@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <linearGradient id="gearGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#4a9eff;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#2d7ad6;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <circle cx="50" cy="50" r="35" fill="url(#gearGrad)"/>
+  <circle cx="50" cy="50" r="10" fill="#1a1a1a"/>
+  <g fill="url(#gearGrad)">
+    <rect x="46" y="5" width="8" height="15" rx="2"/>
+    <rect x="46" y="80" width="8" height="15" rx="2"/>
+    <rect x="5" y="46" width="15" height="8" rx="2"/>
+    <rect x="80" y="46" width="15" height="8" rx="2"/>
+    <rect x="17" y="17" width="8" height="15" rx="2" transform="rotate(45 21 24.5)"/>
+    <rect x="75" y="68" width="8" height="15" rx="2" transform="rotate(45 79 75.5)"/>
+    <rect x="17" y="68" width="8" height="15" rx="2" transform="rotate(-45 21 75.5)"/>
+    <rect x="75" y="17" width="8" height="15" rx="2" transform="rotate(-45 79 24.5)"/>
+  </g>
+</svg>
