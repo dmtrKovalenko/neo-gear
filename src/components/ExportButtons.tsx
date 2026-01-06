@@ -107,8 +107,6 @@ export function ExportButtons({ meshRef, params }: ExportButtonsProps) {
         }
         setProgress({ stage: "Complete!", progress: 100 });
       } else {
-        console.log("Starting optimized export for format:", exportFormat);
-
         if (exportFormat === "stl") {
           result = await exportToSTLWithRepair(
             meshRef.current,
@@ -126,7 +124,6 @@ export function ExportButtons({ meshRef, params }: ExportButtonsProps) {
             params,
             voxelQuality,
             (stage, progress) => {
-              console.log(`Progress: ${stage} - ${progress}%`);
               setProgress({ stage, progress });
             }
           );
@@ -166,13 +163,12 @@ export function ExportButtons({ meshRef, params }: ExportButtonsProps) {
 
   return (
     <div>
-      {/* Export Buttons */}
       <p className="text-text-muted mb-3 font-mono text-xs font-bold tracking-wider uppercase">
         Export Model
       </p>
       <div className="flex gap-2">
         <motion.button
-          className="flex flex-1 items-center justify-center gap-2 rounded-lg border border-[#f97316] bg-[#f97316] px-4 py-3 font-mono text-sm font-semibold text-white transition-all duration-200 hover:bg-[#ea580c] disabled:cursor-not-allowed disabled:opacity-50"
+          className="border-primary-500 bg-primary-500 hover:bg-primary-600 flex flex-1 items-center justify-center gap-2 rounded-lg border px-4 py-3 font-mono text-sm font-semibold text-white transition-all duration-200 disabled:cursor-not-allowed disabled:opacity-50"
           onClick={() => handleStartExport("stl")}
           disabled={showModal}
           whileHover={{ scale: 1.02 }}
@@ -194,7 +190,6 @@ export function ExportButtons({ meshRef, params }: ExportButtonsProps) {
         </motion.button>
       </div>
 
-      {/* Export Modal */}
       <ExportProgressModal
         isOpen={showModal}
         progress={progress.progress}

@@ -52,7 +52,7 @@ export function ExportProgressModal({
       <Dialog.Portal>
         <Dialog.Overlay asChild>
           <motion.div
-            className="fixed inset-0 z-[9999] bg-black/75"
+            className="fixed inset-0 z-9999 bg-black/75"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -60,7 +60,7 @@ export function ExportProgressModal({
         </Dialog.Overlay>
         <Dialog.Content asChild>
           <motion.div
-            className="border-border bg-bg-secondary fixed top-1/2 left-1/2 z-[10000] mx-4 w-full max-w-md -translate-x-1/2 -translate-y-1/2 rounded-lg border p-8 shadow-2xl"
+            className="border-border bg-bg-secondary fixed top-1/2 left-1/2 z-10000 mx-4 w-full max-w-md -translate-x-1/2 -translate-y-1/2 rounded-lg border p-8 shadow-2xl"
             initial={{ scale: 0.9, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0.9, opacity: 0 }}
@@ -81,8 +81,8 @@ export function ExportProgressModal({
                   <label
                     className={`cursor-pointer rounded-lg border-2 transition-all duration-200 ${
                       exportMode === "fast"
-                        ? "border-[#f97316] bg-[#f97316]/10 shadow-lg shadow-[#f97316]/20"
-                        : "border-border bg-bg-tertiary hover:border-[#f97316]/50 hover:bg-[#f97316]/5 hover:shadow-md"
+                        ? "border-primary-500 bg-primary-500/10 shadow-primary-500/20 shadow-lg"
+                        : "border-border bg-bg-tertiary hover:border-primary-500/50 hover:bg-primary-500/5 hover:shadow-md"
                     }`}
                   >
                     <input
@@ -98,12 +98,12 @@ export function ExportProgressModal({
                           <div
                             className={`flex h-4 w-4 items-center justify-center rounded-full border-2 ${
                               exportMode === "fast"
-                                ? "border-[#f97316]"
+                                ? "border-primary-500"
                                 : "border-border"
                             }`}
                           >
                             {exportMode === "fast" && (
-                              <div className="h-2 w-2 rounded-full bg-[#f97316]" />
+                              <div className="bg-primary-500 h-2 w-2 rounded-full" />
                             )}
                           </div>
                           <span className="text-text-primary font-mono text-sm font-bold">
@@ -116,10 +116,10 @@ export function ExportProgressModal({
                           to 3D print.
                         </p>
                       </div>
-                      <div className="flex-shrink-0 transition-all duration-200">
+                      <div className="shrink-0 transition-all duration-200">
                         <BlenderIcon
                           size={48}
-                          className={`transition-colors duration-200 ${exportMode === "fast" ? "text-[#f97316] drop-shadow-lg" : "text-text-muted"}`}
+                          className={`transition-colors duration-200 ${exportMode === "fast" ? "text-primary-500 drop-shadow-lg" : "text-text-muted"}`}
                         />
                       </div>
                     </div>
@@ -129,8 +129,8 @@ export function ExportProgressModal({
                   <label
                     className={`cursor-pointer rounded-lg border-2 transition-all duration-200 ${
                       exportMode === "optimized"
-                        ? "border-[#f97316] bg-[#f97316]/10 shadow-lg shadow-[#f97316]/20"
-                        : "border-border bg-bg-tertiary hover:border-[#f97316]/50 hover:bg-[#f97316]/5 hover:shadow-md"
+                        ? "border-primary-500 bg-primary-500/10 shadow-primary-500/20 shadow-lg"
+                        : "border-border bg-bg-tertiary hover:border-primary-500/50 hover:bg-primary-500/5 hover:shadow-md"
                     }`}
                   >
                     <input
@@ -146,12 +146,12 @@ export function ExportProgressModal({
                           <div
                             className={`flex h-4 w-4 items-center justify-center rounded-full border-2 ${
                               exportMode === "optimized"
-                                ? "border-[#f97316]"
+                                ? "border-primary-500"
                                 : "border-border"
                             }`}
                           >
                             {exportMode === "optimized" && (
-                              <div className="h-2 w-2 rounded-full bg-[#f97316]" />
+                              <div className="bg-primary-500 h-2 w-2 rounded-full" />
                             )}
                           </div>
                           <span className="text-text-primary font-mono text-sm font-bold">
@@ -164,10 +164,10 @@ export function ExportProgressModal({
                           watertight model ready for your 3D printer.
                         </p>
                       </div>
-                      <div className="flex-shrink-0 transition-all duration-200">
+                      <div className="shrink-0 transition-all duration-200">
                         <PrinterIcon
                           size={48}
-                          className={`transition-colors duration-200 ${exportMode === "optimized" ? "text-[#f97316] drop-shadow-lg" : "text-text-muted"}`}
+                          className={`transition-colors duration-200 ${exportMode === "optimized" ? "text-primary-500 drop-shadow-lg" : "text-text-muted"}`}
                         />
                       </div>
                     </div>
@@ -187,8 +187,8 @@ export function ExportProgressModal({
                     onClick={() => onFormatChange("stl")}
                     className={`flex-1 rounded-lg border-2 px-4 py-2 font-mono text-xs font-semibold transition-all duration-200 ${
                       exportFormat === "stl"
-                        ? "text-text-primary border-[#f97316] bg-[#f97316]/10"
-                        : "border-border bg-bg-tertiary text-text-muted hover:border-[#f97316]/50"
+                        ? "text-text-primary border-primary-500 bg-primary-500/10"
+                        : "border-border bg-bg-tertiary text-text-muted hover:border-primary-500/50"
                     }`}
                   >
                     STL
@@ -197,8 +197,8 @@ export function ExportProgressModal({
                     onClick={() => onFormatChange("3mf")}
                     className={`flex-1 rounded-lg border-2 px-4 py-2 font-mono text-xs font-semibold transition-all duration-200 ${
                       exportFormat === "3mf"
-                        ? "text-text-primary border-[#f97316] bg-[#f97316]/10"
-                        : "border-border bg-bg-tertiary text-text-muted hover:border-[#f97316]/50"
+                        ? "text-text-primary border-primary-500 bg-primary-500/10"
+                        : "border-border bg-bg-tertiary text-text-muted hover:border-primary-500/50"
                     }`}
                   >
                     3MF
@@ -217,8 +217,8 @@ export function ExportProgressModal({
                     onClick={() => onSTLFormatChange("binary")}
                     className={`flex-1 rounded-lg border-2 px-4 py-2 font-mono text-xs font-semibold transition-all duration-200 ${
                       stlFormat === "binary"
-                        ? "text-text-primary border-[#f97316] bg-[#f97316]/10"
-                        : "border-border bg-bg-tertiary text-text-muted hover:border-[#f97316]/50"
+                        ? "text-text-primary border-primary-500 bg-primary-500/10"
+                        : "border-border bg-bg-tertiary text-text-muted hover:border-primary-500/50"
                     }`}
                   >
                     Binary
@@ -227,8 +227,8 @@ export function ExportProgressModal({
                     onClick={() => onSTLFormatChange("ascii")}
                     className={`flex-1 rounded-lg border-2 px-4 py-2 font-mono text-xs font-semibold transition-all duration-200 ${
                       stlFormat === "ascii"
-                        ? "text-text-primary border-[#f97316] bg-[#f97316]/10"
-                        : "border-border bg-bg-tertiary text-text-muted hover:border-[#f97316]/50"
+                        ? "text-text-primary border-primary-500 bg-primary-500/10"
+                        : "border-border bg-bg-tertiary text-text-muted hover:border-primary-500/50"
                     }`}
                   >
                     ASCII
@@ -248,8 +248,8 @@ export function ExportProgressModal({
                     onClick={() => onVoxelQualityChange("low")}
                     className={`flex-1 rounded-lg border-2 px-3 py-2 font-mono text-xs font-semibold transition-all duration-200 ${
                       voxelQuality === "low"
-                        ? "text-text-primary border-[#f97316] bg-[#f97316]/10"
-                        : "border-border bg-bg-tertiary text-text-muted hover:border-[#f97316]/50"
+                        ? "text-text-primary border-primary-500 bg-primary-500/10"
+                        : "border-border bg-bg-tertiary text-text-muted hover:border-primary-500/50"
                     }`}
                   >
                     Low
@@ -258,8 +258,8 @@ export function ExportProgressModal({
                     onClick={() => onVoxelQualityChange("medium")}
                     className={`flex-1 rounded-lg border-2 px-3 py-2 font-mono text-xs font-semibold transition-all duration-200 ${
                       voxelQuality === "medium"
-                        ? "text-text-primary border-[#f97316] bg-[#f97316]/10"
-                        : "border-border bg-bg-tertiary text-text-muted hover:border-[#f97316]/50"
+                        ? "text-text-primary border-primary-500 bg-primary-500/10"
+                        : "border-border bg-bg-tertiary text-text-muted hover:border-primary-500/50"
                     }`}
                   >
                     Medium
@@ -268,8 +268,8 @@ export function ExportProgressModal({
                     onClick={() => onVoxelQualityChange("ultra")}
                     className={`flex-1 rounded-lg border-2 px-3 py-2 font-mono text-xs font-semibold transition-all duration-200 ${
                       voxelQuality === "ultra"
-                        ? "text-text-primary border-[#f97316] bg-[#f97316]/10"
-                        : "border-border bg-bg-tertiary text-text-muted hover:border-[#f97316]/50"
+                        ? "text-text-primary border-primary-500 bg-primary-500/10"
+                        : "border-border bg-bg-tertiary text-text-muted hover:border-primary-500/50"
                     }`}
                   >
                     Ultra
@@ -292,7 +292,7 @@ export function ExportProgressModal({
                   value={progress}
                 >
                   <Progress.Indicator
-                    className="h-full rounded-full bg-gradient-to-r from-[#f97316] to-[#fb923c] shadow-lg shadow-[#f97316]/30 transition-all duration-300 ease-out"
+                    className="from-primary-500 to-primary-400 shadow-primary-500/30 h-full rounded-full bg-linear-to-r shadow-lg transition-all duration-300 ease-out"
                     style={{ transform: `translateX(-${100 - progress}%)` }}
                   />
                 </Progress.Root>
@@ -317,7 +317,7 @@ export function ExportProgressModal({
                 <>
                   <button
                     onClick={onDownload}
-                    className="flex-1 rounded-lg border border-[#f97316] bg-gradient-to-r from-[#f97316] to-[#ea580c] px-4 py-3 font-mono text-sm font-semibold text-white transition-all duration-200 hover:scale-105 hover:from-[#ea580c] hover:to-[#c2410c] hover:shadow-lg hover:shadow-[#f97316]/30 active:scale-100"
+                    className="border-primary-500 from-primary-500 to-primary-600 hover:from-primary-600 hover:to-primary-700 hover:shadow-primary-500/30 flex-1 rounded-lg border bg-linear-to-r px-4 py-3 font-mono text-sm font-semibold text-white transition-all duration-200 hover:scale-105 hover:shadow-lg active:scale-100"
                   >
                     Download File
                   </button>
@@ -343,7 +343,7 @@ export function ExportProgressModal({
                 <>
                   <button
                     onClick={onStartExport}
-                    className="flex-1 rounded-lg border border-[#f97316] bg-gradient-to-r from-[#f97316] to-[#ea580c] px-4 py-3 font-mono text-sm font-semibold text-white transition-all duration-200 hover:scale-105 hover:from-[#ea580c] hover:to-[#c2410c] hover:shadow-lg hover:shadow-[#f97316]/30 active:scale-100"
+                    className="border-primary-500 from-primary-500 to-primary-600 hover:from-primary-600 hover:to-primary-700 hover:shadow-primary-500/30 flex-1 rounded-lg border bg-linear-to-r px-4 py-3 font-mono text-sm font-semibold text-white transition-all duration-200 hover:scale-105 hover:shadow-lg active:scale-100"
                   >
                     Start Export
                   </button>

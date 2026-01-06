@@ -8,6 +8,8 @@ import { LineGeometry } from "three/examples/jsm/lines/LineGeometry.js";
 import type { GearParameters } from "../types/gear.types";
 import { calculateGearGeometryValues } from "../utils/gearGenerator";
 
+const LINE_THIKNESS = 2;
+
 interface DimensionLinesProps {
   params: GearParameters;
   visible?: boolean;
@@ -21,6 +23,35 @@ interface DimensionLineProps {
   color?: string;
   extensionOffset?: number;
 }
+
+const createThickLine = (
+  geometry: THREE.BufferGeometry,
+  thickness: number,
+  lineColor: string,
+  opacity: number
+) => {
+  const positions = geometry.attributes.position;
+  const points: number[] = [];
+
+  for (let i = 0; i < positions.count; i++) {
+    points.push(positions.getX(i), positions.getY(i), positions.getZ(i));
+  }
+
+  const lineGeometry = new LineGeometry();
+  lineGeometry.setPositions(points);
+
+  const lineMaterial = new LineMaterial({
+    color: new THREE.Color(lineColor),
+    linewidth: thickness,
+    transparent: true,
+    opacity: opacity,
+    depthTest: false,
+  });
+
+  lineMaterial.resolution.set(window.innerWidth, window.innerHeight);
+
+  return new Line2(lineGeometry, lineMaterial);
+};
 
 function DimensionLine({
   start,
@@ -53,13 +84,16 @@ function DimensionLine({
       );
       const cameraPosition = camera.position.clone();
 
-      // Calculate horizontal distance from camera to group
       const dx = cameraPosition.x - groupPosition.x;
+      const dy = cameraPosition.y - groupPosition.y;
       const dz = cameraPosition.z - groupPosition.z;
-      const horizontalDistance = Math.sqrt(dx * dx + dz * dz);
+      const totalDistance = Math.sqrt(dx * dx + dy * dy + dz * dz);
 
-      // Fade out when camera is close to directly above
-      if (horizontalDistance < 5) {
+      const angleFromHorizontal =
+        Math.abs(Math.asin(dy / totalDistance)) * (180 / Math.PI);
+
+      // Fade out when camera is close to directly above (angle > 75 degrees)
+      if (angleFromHorizontal > 75) {
         groupRef.current.visible = false;
         setIsVisible(false);
       } else {
@@ -72,38 +106,36 @@ function DimensionLine({
     }
   });
 
-  // Use fixed extension offset for constant visual height (not scaled with gear size)
   const scaledExtension = extensionOffset;
 
-  // Calculate lines to create a rectangular frame around the measurement
   const lines = useMemo(() => {
     const startVec = new THREE.Vector3(...start);
     const endVec = new THREE.Vector3(...end);
     const dir = new THREE.Vector3().subVectors(endVec, startVec);
     const dirNormalized = dir.clone().normalize();
 
-    // Determine the perpendicular direction based on the measurement direction
     let perpendicular: THREE.Vector3;
-
-    // For horizontal measurements (in XZ plane), extend upward in Y
     if (Math.abs(dirNormalized.y) < 0.1) {
       // Horizontal line - extend perpendicular upward
       perpendicular = new THREE.Vector3(0, scaledExtension, 0);
     } else {
-      // Vertical line - extend perpendicular outward in XZ plane
-      const horizontal = new THREE.Vector3(
-        dirNormalized.z,
-        0,
-        -dirNormalized.x
-      ).normalize();
-      perpendicular = horizontal.multiplyScalar(scaledExtension);
+      if (
+        Math.abs(dirNormalized.x) < 0.01 &&
+        Math.abs(dirNormalized.z) < 0.01
+      ) {
+        perpendicular = new THREE.Vector3(scaledExtension, 0, 0);
+      } else {
+        const horizontal = new THREE.Vector3(
+          dirNormalized.z,
+          0,
+          -dirNormalized.x
+        ).normalize();
+        perpendicular = horizontal.multiplyScalar(scaledExtension);
+      }
     }
 
-    // Create offset points for the dimension line (elevated from the actual geometry)
     const startOffset = startVec.clone().add(perpendicular);
     const endOffset = endVec.clone().add(perpendicular);
-
-    // Create the rectangular frame:
     const extensionStart = new THREE.BufferGeometry().setFromPoints([
       startVec,
       startOffset,
@@ -127,46 +159,12 @@ function DimensionLine({
     };
   }, [start, end, scaledExtension, midpoint, offset]);
 
-  // Fixed line thickness for consistent visual appearance
-  const lineThickness = 2;
-
-  const createThickLine = (
-    geometry: THREE.BufferGeometry,
-    thickness: number,
-    lineColor: string,
-    opacity: number
-  ) => {
-    const positions = geometry.attributes.position;
-    const points: number[] = [];
-
-    for (let i = 0; i < positions.count; i++) {
-      points.push(positions.getX(i), positions.getY(i), positions.getZ(i));
-    }
-
-    const lineGeometry = new LineGeometry();
-    lineGeometry.setPositions(points);
-
-    const lineMaterial = new LineMaterial({
-      color: new THREE.Color(lineColor),
-      linewidth: thickness,
-      transparent: true,
-      opacity: opacity,
-      depthTest: false,
-    });
-
-    // Resolution needs to be set for Line2
-    lineMaterial.resolution.set(window.innerWidth, window.innerHeight);
-
-    return new Line2(lineGeometry, lineMaterial);
-  };
-
   return (
     <group ref={groupRef}>
-      {/* Extension line from start point to dimension line */}
       <primitive
         object={createThickLine(
           lines.extensionStart,
-          lineThickness,
+          LINE_THIKNESS,
           color,
           0.85
         )}
@@ -176,7 +174,7 @@ function DimensionLine({
       <primitive
         object={createThickLine(
           lines.mainLine,
-          lineThickness * 1.5,
+          LINE_THIKNESS * 1.5,
           color,
           0.95
         )}
@@ -184,7 +182,7 @@ function DimensionLine({
 
       {/* Extension line from end point to dimension line */}
       <primitive
-        object={createThickLine(lines.extensionEnd, lineThickness, color, 0.85)}
+        object={createThickLine(lines.extensionEnd, LINE_THIKNESS, color, 0.85)}
       />
 
       {/* Label - on the line, rotates with the group */}
@@ -237,22 +235,19 @@ export function DimensionLines({
     thickness,
   } = geo;
 
-  // The gear lies flat on XZ plane (Y is up), so diameter measurements are in X direction
-  // Position dimensions at the top face of the gear
+  // the gear lies flat on XZ plane (Y is up), so diameter measurements are in X direction
   const yPosition = thickness;
   const labelOffset = 3;
 
   // Scale extension heights as a small percentage of outer diameter
-  // This keeps them visually proportional regardless of gear size
   const extensionBase = outerDiameter * 0.18; // 18% of outer diameter
-  const outerExtension = extensionBase * 1.2; // Higher to avoid overlapping root diameter label
-  const rootExtension = extensionBase * 0.8;
+  const outerExtension = extensionBase * 1.3; // Higher to avoid overlapping root diameter label
+  const rootExtension = extensionBase * 0.9;
   const boreExtension = extensionBase * 0.5;
-  const thicknessExtension = extensionBase;
+  const thicknessExtension = extensionBase * 0.4; // Shorter horizontal extension for vertical ruler
 
   return (
     <group>
-      {/* Outer Diameter - through the center with small Z offset for separation */}
       <DimensionLine
         start={[-outerRadius, yPosition, 2]}
         end={[outerRadius, yPosition, 2]}
@@ -262,7 +257,6 @@ export function DimensionLines({
         extensionOffset={outerExtension}
       />
 
-      {/* Root Diameter - through the center with small Z offset */}
       <DimensionLine
         start={[-rootRadius, yPosition, 1]}
         end={[rootRadius, yPosition, 1]}
@@ -272,7 +266,6 @@ export function DimensionLines({
         extensionOffset={rootExtension}
       />
 
-      {/* Bore Diameter - through the center */}
       {params.boreDiameter > 0 && (
         <DimensionLine
           start={[-boreRadius, yPosition, 0]}
@@ -284,10 +277,9 @@ export function DimensionLines({
         />
       )}
 
-      {/* Thickness - vertical line on the side */}
       <DimensionLine
-        start={[outerRadius + extensionBase, 0, 0]}
-        end={[outerRadius + extensionBase, thickness, 0]}
+        start={[outerRadius + 1.5, 0, 0]}
+        end={[outerRadius + 1.5, thickness, 0]}
         label={`T: ${thickness.toFixed(1)}mm`}
         offset={labelOffset}
         color="#ffa726"

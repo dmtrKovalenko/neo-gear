@@ -126,7 +126,7 @@ export const GearPreview = forwardRef<THREE.Mesh | null, GearPreviewProps>(
         <Canvas shadows className="h-full w-full">
           <PerspectiveCamera
             makeDefault
-            position={[cameraDistance, cameraDistance * 0.7, cameraDistance]}
+            position={[cameraDistance, cameraDistance * 0.9, cameraDistance]}
             fov={45}
             near={0.1}
             far={10000}

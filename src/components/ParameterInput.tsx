@@ -50,7 +50,7 @@ export function ParameterInput({
           </label>
           <select
             id={inputId}
-            className="focus:border-primary-500 focus:ring-primary-500/20 hover:border-primary-500 border-border bg-bg-tertiary text-text-primary min-w-[200px] cursor-pointer rounded border px-3 py-2 font-mono text-sm transition-all duration-200 focus:ring-2 focus:outline-none"
+            className="focus:border-primary-500 focus:ring-primary-500/20 hover:border-primary-500 border-border bg-bg-tertiary text-text-primary min-w-50 cursor-pointer rounded border px-3 py-2 font-mono text-sm transition-all duration-200 focus:ring-2 focus:outline-none"
             value={value as string}
             onChange={handleSelectChange}
           >
