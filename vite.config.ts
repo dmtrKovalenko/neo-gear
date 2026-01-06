@@ -1,26 +1,30 @@
+/// <reference types="node" />
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
+import vike from "vike/plugin";
 import path from "path";
 
 export default defineConfig(({ mode }) => ({
   plugins: [
     react({
       // Only use React Compiler in production to avoid HMR issues
-      babel: mode === 'production' ? {
-        plugins: [
-          [
-            "babel-plugin-react-compiler",
-            {
-              target: "18",
-            },
-          ],
-        ],
-      } : undefined,
-      // Explicitly enable Fast Refresh for HMR
-      fastRefresh: true,
+      babel:
+        mode === "production"
+          ? {
+              plugins: [
+                [
+                  "babel-plugin-react-compiler",
+                  {
+                    target: "18",
+                  },
+                ],
+              ],
+            }
+          : undefined,
     }),
     tailwindcss(),
+    vike(),
   ],
   resolve: {
     alias: {
@@ -29,10 +33,13 @@ export default defineConfig(({ mode }) => ({
   },
   optimizeDeps: {
     include: ["@jscad/modeling"],
-    exclude: ["manifold-3d", "as-mesh"], // Exclude WASM modules from optimization
+    exclude: ["as-mesh"], // Exclude WASM modules from optimization
     esbuildOptions: {
       target: "esnext",
     },
+  },
+  ssr: {
+    noExternal: ["three", "three-bvh-csg", "three-mesh-bvh", "three-stdlib", "@react-three/fiber", "@react-three/drei", "zustand", "detect-gpu"],
   },
   worker: {
     format: "es", // Use ES modules for workers to support top-level await
