@@ -35,7 +35,7 @@ function createBinarySTL(
   const buffer = new ArrayBuffer(bufferSize);
   const view = new DataView(buffer);
 
-  const header = "Binary STL created by Gear FTL Generator with MeshLib repair";
+  const header = "Binary STL created by gears.dmtrkovalenko.dev";
   const headerBytes = new TextEncoder().encode(header);
   for (let i = 0; i < Math.min(80, headerBytes.length); i++) {
     view.setUint8(i, headerBytes[i]);
@@ -244,7 +244,7 @@ export function exportTo3MFFast(
 
   const header = {
     title: modelName,
-    designer: "Gear FTL Generator",
+    designer: "gears.dmtrkovalenko.dev",
     description: `Gear: ${params.teethCount} teeth, ${params.module}mm module, ${pitchDiameter}mm pitch diameter (Fast Export)`,
     copyright: "© " + new Date().getFullYear(),
     licenseTerms: "",
@@ -440,7 +440,7 @@ export async function exportTo3MFWithRepair(
 
   const header = {
     title: modelName,
-    designer: "Gear FTL Generator",
+    designer: "gears.dmtrkovalenko.dev",
     description: `Gear: ${params.teethCount} teeth, ${params.module}mm module, ${pitchDiameter}mm pitch diameter (MeshLib repaired)`,
     copyright: "© " + new Date().getFullYear(),
     licenseTerms: "",

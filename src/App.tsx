@@ -27,7 +27,7 @@ const INTERDEPENDENT_PARAMS = [
 
 function App() {
   const [params, setParams] = useStickyState<GearParameters>(
-    "gear-ftl-params",
+    "neo-gear-params",
     DEFAULT_GEAR_PARAMS,
     1
   );

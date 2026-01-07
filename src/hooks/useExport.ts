@@ -58,7 +58,7 @@ export function useExport(
   params: GearParameters
 ): UseExportReturn {
   const [settings, setSettings] = useStickyState<ExportSettings>(
-    "gear-ftl-export-settings",
+    "neo-gear-export-settings",
     DEFAULT_EXPORT_SETTINGS,
     1
   );

@@ -59,7 +59,7 @@ function LoadingSpinner() {
 export const GearPreview = forwardRef<THREE.Mesh | null, GearPreviewProps>(
   function GearPreview({ params }, ref) {
     const [settings, setSettings] = useStickyState<PreviewSettings>(
-      "gear-ftl-preview-settings",
+      "neo-gear-preview-settings",
       DEFAULT_PREVIEW_SETTINGS,
       1
     );
