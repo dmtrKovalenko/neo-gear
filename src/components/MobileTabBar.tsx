@@ -36,7 +36,7 @@ function TabButton({ label, icon, isActive, onClick }: TabButtonProps) {
       whileTap={{ scale: 0.95 }}
       onClick={onClick}
     >
-      <ion-icon name={icon} class="text-lg"></ion-icon>
+      <ion-icon name={icon} class="text-lg" />
       <span className="font-mono text-sm font-medium">{label}</span>
     </motion.button>
   );

@@ -22,7 +22,7 @@ interface ParameterPanelProps {
   params: GearParameters;
   onParamChange: (key: keyof GearParameters, value: number | string) => void;
   variant?: "desktop" | "mobile";
-  onExport?: () => void;
+  onExport?: (format?: "stl" | "3mf") => void;
 }
 
 const parameterGroups = [
@@ -108,7 +108,7 @@ export function ParameterPanel({
               animate={{ rotate: 360 }}
               transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
             >
-              <ion-icon name="cog-outline" class="text-[3rem]"></ion-icon>
+              <ion-icon name="cog-outline" class="text-[3rem]" />
             </motion.div>
             <div>
               <h1 className="text-ink-primary font-mono text-2xl font-bold tracking-tight">
@@ -258,9 +258,9 @@ export function ParameterPanel({
                 className="bg-primary-500 hover:bg-primary-600 flex w-full items-center justify-center gap-2 rounded-lg px-4 py-3 font-mono text-sm font-semibold text-white shadow-lg transition-all duration-200"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                onClick={onExport}
+                onClick={() => onExport()}
               >
-                <ion-icon name="download-outline" class="text-lg"></ion-icon>
+                <ion-icon name="download-outline" class="text-lg" />
                 Export
               </motion.button>
             </motion.section>
@@ -280,7 +280,7 @@ export function ParameterPanel({
             animate={{ rotate: 360 }}
             transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
           >
-            <ion-icon name="cog-outline" class="mt-0.5 text-[4rem]"></ion-icon>
+            <ion-icon name="cog-outline" class="mt-0.5 text-[4rem]" />
           </motion.div>
           <div>
             <h1 className="text-ink-primary font-mono text-3xl font-bold tracking-tight">
@@ -420,15 +420,26 @@ export function ParameterPanel({
           <p className="text-ink-muted mb-3 font-mono text-xs font-bold tracking-wider uppercase">
             Export Model
           </p>
-          <motion.button
-            className="bg-primary-500 hover:bg-primary-600 flex w-full items-center justify-center gap-2 rounded-lg px-4 py-3 font-mono text-sm font-semibold text-white shadow-lg transition-all duration-200"
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-            onClick={onExport}
-          >
-            <ion-icon name="download-outline" class="text-lg"></ion-icon>
-            Export
-          </motion.button>
+          <div className="flex gap-2">
+            <motion.button
+              className="border-primary-500 bg-primary-500 hover:bg-primary-600 flex flex-1 items-center justify-center gap-2 rounded-lg border px-4 py-3 font-mono text-sm font-semibold text-white transition-all duration-200"
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              onClick={() => onExport("stl")}
+            >
+              <ion-icon name="download-outline" class="text-lg" />
+              Export STL
+            </motion.button>
+            <motion.button
+              className="hover:border-primary-500 hover:text-primary-500 border-border bg-tertiary text-ink-primary flex flex-1 items-center justify-center gap-2 rounded-lg border px-4 py-3 font-mono text-sm font-semibold transition-all duration-200"
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              onClick={() => onExport("3mf")}
+            >
+              <ion-icon name="download-outline" class="text-lg" />
+              Export 3MF
+            </motion.button>
+          </div>
         </div>
       )}
     </div>

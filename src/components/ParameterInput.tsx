@@ -78,7 +78,7 @@ export function ParameterInput({
           <ion-icon
             name="help-circle-outline"
             class="text-ink-muted hover:text-primary-500 text-base transition-colors"
-          ></ion-icon>
+          />
         )}
       </label>
     );
@@ -137,7 +137,7 @@ export function ParameterInput({
                 <ion-icon
                   name="help-circle-outline"
                   class="text-ink-muted hover:text-primary-500 text-base transition-colors"
-                ></ion-icon>
+                />
               )}
             </label>
           );

@@ -45,7 +45,7 @@ export interface ExportActions {
   setExportFormat: (format: ExportFormat) => void;
   setSTLFormat: (format: STLFormat) => void;
   setVoxelQuality: (quality: VoxelQuality) => void;
-  openExport: () => void;
+  openExport: (format?: ExportFormat) => void;
   processExport: () => Promise<void>;
   download: () => void;
   cancel: () => void;
@@ -90,7 +90,10 @@ export function useExport(
     setExportResult(null);
   };
 
-  const openExport = () => {
+  const openExport = (format?: ExportFormat) => {
+    if (format) {
+      setExportFormat(format);
+    }
     setShowModal(true);
     setIsComplete(false);
     setIsProcessing(false);

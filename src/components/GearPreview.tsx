@@ -49,7 +49,7 @@ function LoadingSpinner() {
     <Html center>
       <div className="flex flex-col items-center gap-3">
         <div className="text-primary-500 animate-spin">
-          <ion-icon name="cog-outline" class="text-6xl"></ion-icon>
+          <ion-icon name="cog-outline" class="text-6xl" />
         </div>
       </div>
     </Html>
@@ -99,7 +99,7 @@ export const GearPreview = forwardRef<THREE.Mesh | null, GearPreviewProps>(
             whileTap={{ scale: 0.95 }}
             title="Toggle auto-rotation"
           >
-            <ion-icon name="refresh-outline" class="text-xl"></ion-icon>
+            <ion-icon name="refresh-outline" class="text-xl" />
           </motion.button>
 
           <motion.button
@@ -113,7 +113,7 @@ export const GearPreview = forwardRef<THREE.Mesh | null, GearPreviewProps>(
             whileTap={{ scale: 0.95 }}
             title="Toggle grid"
           >
-            <ion-icon name="grid-outline" class="text-xl"></ion-icon>
+            <ion-icon name="grid-outline" class="text-xl" />
           </motion.button>
 
           <motion.button
@@ -127,10 +127,7 @@ export const GearPreview = forwardRef<THREE.Mesh | null, GearPreviewProps>(
             whileTap={{ scale: 0.95 }}
             title="Toggle axes"
           >
-            <ion-icon
-              name="expand-outline"
-              class="rotate-45 text-xl"
-            ></ion-icon>
+            <ion-icon name="expand-outline" class="rotate-45 text-xl" />
           </motion.button>
 
           <motion.button
@@ -144,7 +141,7 @@ export const GearPreview = forwardRef<THREE.Mesh | null, GearPreviewProps>(
             whileTap={{ scale: 0.95 }}
             title="Toggle dimensions"
           >
-            <ion-icon name="resize-outline" class="text-xl"></ion-icon>
+            <ion-icon name="resize-outline" class="text-xl" />
           </motion.button>
         </div>
 
