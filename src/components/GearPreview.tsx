@@ -192,7 +192,8 @@ export const GearPreview = forwardRef<THREE.Mesh | null, GearPreviewProps>(
           />
         </Canvas>
 
-        <div className="absolute bottom-4 left-4 z-10 flex gap-3">
+        {/* Info cards - hidden on mobile to avoid tab bar overlap */}
+        <div className="absolute bottom-4 left-4 z-10 hidden gap-3 md:flex">
           <div className="border-border bg-secondary/90 rounded-lg border px-4 py-2 backdrop-blur-sm">
             <span className="text-ink-muted block font-mono text-xs">
               Teeth

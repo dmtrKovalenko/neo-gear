@@ -60,7 +60,7 @@ export function ExportProgressModal({
         </Dialog.Overlay>
         <Dialog.Content asChild>
           <motion.div
-            className="border-border bg-secondary fixed top-1/2 left-1/2 z-10000 mx-4 w-full max-w-md -translate-x-1/2 -translate-y-1/2 rounded-lg border p-8 shadow-2xl"
+            className="border-border bg-secondary fixed top-1/2 left-1/2 z-10000 max-h-[calc(100%-2rem)] w-[calc(100%-2rem)] max-w-md -translate-x-1/2 -translate-y-1/2 overflow-y-auto rounded-lg border p-6 shadow-2xl md:p-8"
             initial={{ scale: 0.9, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0.9, opacity: 0 }}

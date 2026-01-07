@@ -3,8 +3,11 @@ import type * as THREE from "three";
 import { useDebounce } from "use-debounce";
 import { ParameterPanel } from "./components/ParameterPanel";
 import { GearPreview } from "./components/GearPreview";
+import { MobileLayout } from "./components/MobileLayout";
+import { ExportProgressModal } from "./components/ExportProgressModal";
 import { DEFAULT_GEAR_PARAMS, type GearParameters } from "./types/gear.types";
 import { calculateGearGeometryValues } from "./utils/gearGenerator";
+import { useExport } from "./hooks/useExport";
 
 import "./tailwind.css";
 
@@ -27,6 +30,7 @@ function App() {
   const meshRef = useRef<THREE.Mesh | null>(null);
 
   const [debouncedParams] = useDebounce(params, 150);
+  const exportState = useExport(meshRef, params);
 
   const getOldestParam = (
     currentHistory: EditHistoryEntry[],
@@ -179,14 +183,48 @@ function App() {
   };
 
   return (
-    <div className="flex h-full w-full">
-      <ParameterPanel
-        params={params}
-        onParamChange={handleParamChange}
-        meshRef={meshRef}
+    <>
+      {/* Desktop Layout */}
+      <div className="hidden h-full w-full md:flex">
+        <ParameterPanel
+          params={params}
+          onParamChange={handleParamChange}
+          onExport={exportState.openExport}
+        />
+        <GearPreview ref={meshRef} params={debouncedParams} />
+      </div>
+
+      {/* Mobile Layout */}
+      <div className="flex h-full w-full flex-col md:hidden">
+        <MobileLayout
+          params={params}
+          debouncedParams={debouncedParams}
+          onParamChange={handleParamChange}
+          meshRef={meshRef}
+          onExport={exportState.openExport}
+        />
+      </div>
+
+      {/* Shared Export Modal */}
+      <ExportProgressModal
+        isOpen={exportState.showModal}
+        progress={exportState.progress.progress}
+        stage={exportState.progress.stage}
+        isComplete={exportState.isComplete}
+        isProcessing={exportState.isProcessing}
+        exportMode={exportState.exportMode}
+        exportFormat={exportState.exportFormat}
+        stlFormat={exportState.stlFormat}
+        voxelQuality={exportState.voxelQuality}
+        onModeChange={exportState.setExportMode}
+        onFormatChange={exportState.setExportFormat}
+        onSTLFormatChange={exportState.setSTLFormat}
+        onVoxelQualityChange={exportState.setVoxelQuality}
+        onStartExport={exportState.processExport}
+        onDownload={exportState.download}
+        onCancel={exportState.cancel}
       />
-      <GearPreview ref={meshRef} params={debouncedParams} />
-    </div>
+    </>
   );
 }
 
