@@ -29,14 +29,14 @@ interface ParameterPanelProps {
 const parameterGroups = [
   {
     title: "Basic Parameters",
-    keys: ["teethCount", "module", "outerDiameter"] as const,
+    keys: ["module", "outerDiameter", "teethCount"] as const,
   },
   {
     title: "Tooth Geometry",
     keys: ["pressureAngle", "backlash", "clearance", "profileShift"] as const,
   },
   {
-    title: "Shaft & Dimensions",
+    title: "Shaft Bore",
     keys: [
       "holeType",
       "boreDiameter",
@@ -48,7 +48,7 @@ const parameterGroups = [
     ] as const,
   },
   {
-    title: "Advanced",
+    title: "Additional",
     keys: ["helixAngle"] as const,
   },
 ];
@@ -126,7 +126,7 @@ export function ParameterPanel({
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: groupIndex * 0.1 }}
           >
-            <h2 className="text-ink-muted mb-4 font-mono text-xs font-bold tracking-wider">
+            <h2 className="text-ink-muted mb-4 font-mono text-xs font-bold tracking-wider uppercase">
               {group.title}
             </h2>
             <div className="space-y-4">

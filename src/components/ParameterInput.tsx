@@ -1,7 +1,9 @@
 import { useId, useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import * as Slider from "@radix-ui/react-slider";
-import type { GearParameterConfig } from "../types/gear.types";
+import type { GearParameterConfig, GearParameters } from "../types/gear.types";
+import { InfoHoverCard } from "./InfoHoverCard";
+import { PARAMETER_HELP_CONTENT } from "../types/help.content";
 
 interface ParameterInputProps {
   config: GearParameterConfig;
@@ -17,6 +19,8 @@ export function ParameterInput({
   const inputId = useId();
   const [inputValue, setInputValue] = useState(String(value));
   const lastExternalValue = useRef(value);
+
+  const helpContent = PARAMETER_HELP_CONTENT[key as keyof GearParameters];
 
   useEffect(() => {
     if (value !== lastExternalValue.current) {
@@ -64,6 +68,21 @@ export function ParameterInput({
   };
 
   if (type === "select" && options) {
+    const labelElement = (
+      <label
+        htmlFor={inputId}
+        className={`text-ink-primary font-mono text-sm font-semibold tracking-wide ${helpContent ? "flex cursor-help items-center gap-1.5" : ""}`}
+      >
+        {label}
+        {helpContent && (
+          <ion-icon
+            name="help-circle-outline"
+            class="text-ink-muted hover:text-primary-500 text-base transition-colors"
+          ></ion-icon>
+        )}
+      </label>
+    );
+
     return (
       <motion.div
         className="border-border border-b py-4 last:border-b-0"
@@ -72,12 +91,11 @@ export function ParameterInput({
         transition={{ duration: 0.3 }}
       >
         <div className="mb-3 flex items-center justify-between">
-          <label
-            htmlFor={inputId}
-            className="text-ink-primary font-mono text-sm font-semibold tracking-wide"
-          >
-            {label}
-          </label>
+          {helpContent ? (
+            <InfoHoverCard content={helpContent}>{labelElement}</InfoHoverCard>
+          ) : (
+            labelElement
+          )}
           <select
             id={inputId}
             className="focus:border-primary-500 focus:ring-primary-500/20 hover:border-primary-500 border-border bg-tertiary text-ink-primary min-w-50 cursor-pointer rounded border px-3 py-2 font-mono text-sm transition-all duration-200 focus:ring-2 focus:outline-none"
@@ -108,12 +126,28 @@ export function ParameterInput({
       transition={{ duration: 0.3 }}
     >
       <div className="mb-3 flex items-center justify-between">
-        <label
-          htmlFor={inputId}
-          className="text-ink-primary font-mono text-sm font-semibold tracking-wide"
-        >
-          {label}
-        </label>
+        {(() => {
+          const labelElement = (
+            <label
+              htmlFor={inputId}
+              className={`text-ink-primary font-mono text-sm font-semibold tracking-wide ${helpContent ? "flex cursor-help items-center gap-1.5" : ""}`}
+            >
+              {label}
+              {helpContent && (
+                <ion-icon
+                  name="help-circle-outline"
+                  class="text-ink-muted hover:text-primary-500 text-base transition-colors"
+                ></ion-icon>
+              )}
+            </label>
+          );
+
+          return helpContent ? (
+            <InfoHoverCard content={helpContent}>{labelElement}</InfoHoverCard>
+          ) : (
+            labelElement
+          );
+        })()}
         <div className="flex items-center gap-1">
           <input
             type="number"
