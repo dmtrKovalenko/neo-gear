@@ -17,8 +17,8 @@ export const PARAMETER_HELP_CONTENT: Partial<
         <p>
           Module is the main paramter for the gear because it controls the ratio
           of a size to the number of teeth. Think of module like the "size
-          setting" for the gears of different diamaters. If 2 gears have the same
-          module, they will mesh together properly.
+          setting" for the gears of different diamaters. If 2 gears have the
+          same module, they will mesh together properly.
         </p>
 
         <p className="text-ink-primary font-semibold">How to measure my gear</p>

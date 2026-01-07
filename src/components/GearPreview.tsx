@@ -1,4 +1,4 @@
-import { Suspense, useState, forwardRef } from "react";
+import { Suspense, forwardRef } from "react";
 import { Canvas } from "@react-three/fiber";
 import {
   OrbitControls,
@@ -13,6 +13,21 @@ import { GearMesh } from "./GearMesh";
 import { DimensionLines } from "./DimensionLines";
 import type { GearParameters } from "../types/gear.types";
 import { calculateGearGeometryValues } from "../utils/gearGenerator";
+import { useStickyState } from "../hooks/useStickyState";
+
+interface PreviewSettings {
+  autoRotate: boolean;
+  showGrid: boolean;
+  showAxes: boolean;
+  showDimensions: boolean;
+}
+
+const DEFAULT_PREVIEW_SETTINGS: PreviewSettings = {
+  autoRotate: true,
+  showGrid: true,
+  showAxes: false,
+  showDimensions: true,
+};
 
 declare global {
   namespace JSX {
@@ -43,15 +58,25 @@ function LoadingSpinner() {
 
 export const GearPreview = forwardRef<THREE.Mesh | null, GearPreviewProps>(
   function GearPreview({ params }, ref) {
-    const [autoRotate, setAutoRotate] = useState(true);
-    const [showGrid, setShowGrid] = useState(true);
-    const [showAxes, setShowAxes] = useState(false);
-    const [showDimensions, setShowDimensions] = useState(true);
+    const [settings, setSettings] = useStickyState<PreviewSettings>(
+      "gear-ftl-preview-settings",
+      DEFAULT_PREVIEW_SETTINGS,
+      1
+    );
 
-    const toggleAutoRotate = () => setAutoRotate((prev) => !prev);
-    const toggleGrid = () => setShowGrid((prev) => !prev);
-    const toggleAxes = () => setShowAxes((prev) => !prev);
-    const toggleDimensions = () => setShowDimensions((prev) => !prev);
+    const { autoRotate, showGrid, showAxes, showDimensions } = settings;
+
+    const toggleAutoRotate = () =>
+      setSettings((prev) => ({ ...prev, autoRotate: !prev.autoRotate }));
+    const toggleGrid = () =>
+      setSettings((prev) => ({ ...prev, showGrid: !prev.showGrid }));
+    const toggleAxes = () =>
+      setSettings((prev) => ({ ...prev, showAxes: !prev.showAxes }));
+    const toggleDimensions = () =>
+      setSettings((prev) => ({
+        ...prev,
+        showDimensions: !prev.showDimensions,
+      }));
 
     const geo = calculateGearGeometryValues(params);
     const { pitchRadius, outerDiameter } = geo;

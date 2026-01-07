@@ -13,6 +13,21 @@ import {
   exportToSTLWithRepair,
   exportTo3MFWithRepair,
 } from "../utils/exporters";
+import { useStickyState } from "./useStickyState";
+
+interface ExportSettings {
+  exportMode: ExportMode;
+  exportFormat: ExportFormat;
+  stlFormat: STLFormat;
+  voxelQuality: VoxelQuality;
+}
+
+const DEFAULT_EXPORT_SETTINGS: ExportSettings = {
+  exportMode: "optimized",
+  exportFormat: "stl",
+  stlFormat: "binary",
+  voxelQuality: "ultra",
+};
 
 export interface ExportState {
   exportMode: ExportMode;
@@ -42,10 +57,11 @@ export function useExport(
   meshRef: RefObject<Mesh | null>,
   params: GearParameters
 ): UseExportReturn {
-  const [exportMode, setExportMode] = useState<ExportMode>("optimized");
-  const [exportFormat, setExportFormat] = useState<ExportFormat>("stl");
-  const [stlFormat, setSTLFormat] = useState<STLFormat>("binary");
-  const [voxelQuality, setVoxelQuality] = useState<VoxelQuality>("ultra");
+  const [settings, setSettings] = useStickyState<ExportSettings>(
+    "gear-ftl-export-settings",
+    DEFAULT_EXPORT_SETTINGS,
+    1
+  );
   const [showModal, setShowModal] = useState(false);
   const [progress, setProgress] = useState({ stage: "", progress: 0 });
   const [isProcessing, setIsProcessing] = useState(false);
@@ -54,6 +70,17 @@ export function useExport(
     blob: Blob;
     filename: string;
   } | null>(null);
+
+  const { exportMode, exportFormat, stlFormat, voxelQuality } = settings;
+
+  const setExportMode = (mode: ExportMode) =>
+    setSettings((prev) => ({ ...prev, exportMode: mode }));
+  const setExportFormat = (format: ExportFormat) =>
+    setSettings((prev) => ({ ...prev, exportFormat: format }));
+  const setSTLFormat = (format: STLFormat) =>
+    setSettings((prev) => ({ ...prev, stlFormat: format }));
+  const setVoxelQuality = (quality: VoxelQuality) =>
+    setSettings((prev) => ({ ...prev, voxelQuality: quality }));
 
   const resetState = () => {
     setShowModal(false);

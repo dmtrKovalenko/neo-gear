@@ -4,6 +4,7 @@ import { zipSync, strToU8 } from "fflate";
 import { STLExporter } from "three/examples/jsm/exporters/STLExporter.js";
 import type { GearParameters } from "../types/gear.types";
 import type { STLFormat, VoxelQuality } from "../types/export.types";
+import { trackEvent } from "./analytics";
 
 // Voxel quality to multiplier mapping (lower = coarser, higher = finer)
 const VOXEL_QUALITY_MULTIPLIERS: Record<VoxelQuality, number> = {
@@ -187,6 +188,7 @@ export function exportToSTLFast(
   const blob = new Blob([stlData], { type: "application/sla" });
 
   console.log(`✓ Fast ${stlFormat.toUpperCase()} STL export complete!`);
+  trackEvent("stl_export", { props: { format: stlFormat, quality: "fast" } });
   return { blob, filename };
 }
 
@@ -396,6 +398,9 @@ export async function exportToSTLWithRepair(
   console.log(
     `✓ ${stlFormat.toUpperCase()} STL export with MeshLib repair complete!`
   );
+  trackEvent("stl_export", {
+    props: { format: stlFormat, quality: voxelQuality },
+  });
   return { blob, filename };
 }
 

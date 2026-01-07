@@ -42,12 +42,9 @@ function TabButton({ label, icon, isActive, onClick }: TabButtonProps) {
   );
 }
 
-export function MobileTabBar({
-  activeTab,
-  onTabChange,
-}: MobileTabBarProps) {
+export function MobileTabBar({ activeTab, onTabChange }: MobileTabBarProps) {
   return (
-    <div className="fixed bottom-4 left-4 right-4 z-50">
+    <div className="fixed right-4 bottom-4 left-4 z-50">
       <div className="border-border bg-secondary/95 flex items-center justify-around rounded-2xl border p-2 shadow-2xl backdrop-blur-xl">
         <TabButton
           label="Config"

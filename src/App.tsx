@@ -8,6 +8,7 @@ import { ExportProgressModal } from "./components/ExportProgressModal";
 import { DEFAULT_GEAR_PARAMS, type GearParameters } from "./types/gear.types";
 import { calculateGearGeometryValues } from "./utils/gearGenerator";
 import { useExport } from "./hooks/useExport";
+import { useStickyState } from "./hooks/useStickyState";
 
 import "./tailwind.css";
 
@@ -25,7 +26,11 @@ const INTERDEPENDENT_PARAMS = [
 ] as const;
 
 function App() {
-  const [params, setParams] = useState<GearParameters>(DEFAULT_GEAR_PARAMS);
+  const [params, setParams] = useStickyState<GearParameters>(
+    "gear-ftl-params",
+    DEFAULT_GEAR_PARAMS,
+    1
+  );
   const [editHistory, setEditHistory] = useState<EditHistoryEntry[]>([]);
   const meshRef = useRef<THREE.Mesh | null>(null);
 

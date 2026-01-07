@@ -130,7 +130,7 @@ export function ParameterPanel({
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: groupIndex * 0.1 }}
             >
-              <h2 className="text-ink-muted mb-4 font-mono text-xs font-bold uppercase tracking-wider">
+              <h2 className="text-ink-muted mb-4 font-mono text-xs font-bold tracking-wider uppercase">
                 {group.title}
               </h2>
               <div className="space-y-4">
@@ -174,7 +174,7 @@ export function ParameterPanel({
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4 }}
           >
-            <h2 className="text-ink-muted mb-4 font-mono text-xs font-bold uppercase tracking-wider">
+            <h2 className="text-ink-muted mb-4 font-mono text-xs font-bold tracking-wider uppercase">
               Calculated Dimensions
             </h2>
             <div className="grid grid-cols-2 gap-3">
@@ -251,7 +251,7 @@ export function ParameterPanel({
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.5 }}
             >
-              <h2 className="text-ink-muted mb-4 font-mono text-xs font-bold uppercase tracking-wider">
+              <h2 className="text-ink-muted mb-4 font-mono text-xs font-bold tracking-wider uppercase">
                 Export Model
               </h2>
               <motion.button
@@ -417,7 +417,7 @@ export function ParameterPanel({
 
       {onExport && (
         <div className="border-border border-t p-4">
-          <p className="text-ink-muted mb-3 font-mono text-xs font-bold uppercase tracking-wider">
+          <p className="text-ink-muted mb-3 font-mono text-xs font-bold tracking-wider uppercase">
             Export Model
           </p>
           <motion.button
