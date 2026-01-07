@@ -174,7 +174,6 @@ function App() {
         newParams.boreDiameter = maxBoreDiameter;
       }
 
-
       return newParams;
     });
   };

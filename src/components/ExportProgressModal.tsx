@@ -60,20 +60,20 @@ export function ExportProgressModal({
         </Dialog.Overlay>
         <Dialog.Content asChild>
           <motion.div
-            className="border-border bg-bg-secondary fixed top-1/2 left-1/2 z-10000 mx-4 w-full max-w-md -translate-x-1/2 -translate-y-1/2 rounded-lg border p-8 shadow-2xl"
+            className="border-border bg-secondary fixed top-1/2 left-1/2 z-10000 mx-4 w-full max-w-md -translate-x-1/2 -translate-y-1/2 rounded-lg border p-8 shadow-2xl"
             initial={{ scale: 0.9, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0.9, opacity: 0 }}
           >
             {/* Title */}
-            <Dialog.Title className="text-text-primary mb-6 font-mono text-xl font-bold">
+            <Dialog.Title className="text-ink-primary mb-6 font-mono text-xl font-bold">
               Export
             </Dialog.Title>
 
             {/* Export Mode Selector (only show if not started processing) */}
             {!isComplete && !isProcessing && (
               <div className="mb-6">
-                <p className="text-text-muted mb-3 font-mono text-xs font-bold tracking-wider uppercase">
+                <p className="text-ink-muted mb-3 font-mono text-xs font-bold tracking-wider uppercase">
                   Export Quality
                 </p>
                 <div className="flex flex-col gap-2">
@@ -82,7 +82,7 @@ export function ExportProgressModal({
                     className={`cursor-pointer rounded-lg border-2 transition-all duration-200 ${
                       exportMode === "fast"
                         ? "border-primary-500 bg-primary-500/10 shadow-primary-500/20 shadow-lg"
-                        : "border-border bg-bg-tertiary hover:border-primary-500/50 hover:bg-primary-500/5 hover:shadow-md"
+                        : "border-border bg-tertiary hover:border-primary-500/50 hover:bg-primary-500/5 hover:shadow-md"
                     }`}
                   >
                     <input
@@ -106,11 +106,11 @@ export function ExportProgressModal({
                               <div className="bg-primary-500 h-2 w-2 rounded-full" />
                             )}
                           </div>
-                          <span className="text-text-primary font-mono text-sm font-bold">
+                          <span className="text-ink-primary font-mono text-sm font-bold">
                             Fast and Raw
                           </span>
                         </div>
-                        <p className="text-text-muted font-mono text-xs">
+                        <p className="text-ink-muted font-mono text-xs">
                           Instant export of a perfect-looking model suitable for
                           3D modelling, but may require additional repair step
                           to 3D print.
@@ -119,7 +119,7 @@ export function ExportProgressModal({
                       <div className="shrink-0 transition-all duration-200">
                         <BlenderIcon
                           size={48}
-                          className={`transition-colors duration-200 ${exportMode === "fast" ? "text-primary-500 drop-shadow-lg" : "text-text-muted"}`}
+                          className={`transition-colors duration-200 ${exportMode === "fast" ? "text-primary-500 drop-shadow-lg" : "text-ink-muted"}`}
                         />
                       </div>
                     </div>
@@ -130,7 +130,7 @@ export function ExportProgressModal({
                     className={`cursor-pointer rounded-lg border-2 transition-all duration-200 ${
                       exportMode === "optimized"
                         ? "border-primary-500 bg-primary-500/10 shadow-primary-500/20 shadow-lg"
-                        : "border-border bg-bg-tertiary hover:border-primary-500/50 hover:bg-primary-500/5 hover:shadow-md"
+                        : "border-border bg-tertiary hover:border-primary-500/50 hover:bg-primary-500/5 hover:shadow-md"
                     }`}
                   >
                     <input
@@ -154,11 +154,11 @@ export function ExportProgressModal({
                               <div className="bg-primary-500 h-2 w-2 rounded-full" />
                             )}
                           </div>
-                          <span className="text-text-primary font-mono text-sm font-bold">
+                          <span className="text-ink-primary font-mono text-sm font-bold">
                             Optimized for 3D Printing
                           </span>
                         </div>
-                        <p className="text-text-muted font-mono text-xs">
+                        <p className="text-ink-muted font-mono text-xs">
                           Will take some time (well, you running this in a
                           browser I demand your understanding) but it will be a
                           watertight model ready for your 3D printer.
@@ -167,7 +167,7 @@ export function ExportProgressModal({
                       <div className="shrink-0 transition-all duration-200">
                         <PrinterIcon
                           size={48}
-                          className={`transition-colors duration-200 ${exportMode === "optimized" ? "text-primary-500 drop-shadow-lg" : "text-text-muted"}`}
+                          className={`transition-colors duration-200 ${exportMode === "optimized" ? "text-primary-500 drop-shadow-lg" : "text-ink-muted"}`}
                         />
                       </div>
                     </div>
@@ -179,7 +179,7 @@ export function ExportProgressModal({
             {/* Format Selection (only show if not started processing) */}
             {!isComplete && !isProcessing && (
               <div className="mb-6">
-                <p className="text-text-muted mb-3 font-mono text-xs font-bold tracking-wider uppercase">
+                <p className="text-ink-muted mb-3 font-mono text-xs font-bold tracking-wider uppercase">
                   File Format
                 </p>
                 <div className="flex gap-2">
@@ -187,8 +187,8 @@ export function ExportProgressModal({
                     onClick={() => onFormatChange("stl")}
                     className={`flex-1 rounded-lg border-2 px-4 py-2 font-mono text-xs font-semibold transition-all duration-200 ${
                       exportFormat === "stl"
-                        ? "text-text-primary border-primary-500 bg-primary-500/10"
-                        : "border-border bg-bg-tertiary text-text-muted hover:border-primary-500/50"
+                        ? "text-ink-primary border-primary-500 bg-primary-500/10"
+                        : "border-border bg-tertiary text-ink-muted hover:border-primary-500/50"
                     }`}
                   >
                     STL
@@ -197,8 +197,8 @@ export function ExportProgressModal({
                     onClick={() => onFormatChange("3mf")}
                     className={`flex-1 rounded-lg border-2 px-4 py-2 font-mono text-xs font-semibold transition-all duration-200 ${
                       exportFormat === "3mf"
-                        ? "text-text-primary border-primary-500 bg-primary-500/10"
-                        : "border-border bg-bg-tertiary text-text-muted hover:border-primary-500/50"
+                        ? "text-ink-primary border-primary-500 bg-primary-500/10"
+                        : "border-border bg-tertiary text-ink-muted hover:border-primary-500/50"
                     }`}
                   >
                     3MF
@@ -209,7 +209,7 @@ export function ExportProgressModal({
 
             {!isComplete && !isProcessing && exportFormat === "stl" && (
               <div className="mb-6">
-                <p className="text-text-muted mb-3 font-mono text-xs font-bold tracking-wider uppercase">
+                <p className="text-ink-muted mb-3 font-mono text-xs font-bold tracking-wider uppercase">
                   File format
                 </p>
                 <div className="flex gap-2">
@@ -217,8 +217,8 @@ export function ExportProgressModal({
                     onClick={() => onSTLFormatChange("binary")}
                     className={`flex-1 rounded-lg border-2 px-4 py-2 font-mono text-xs font-semibold transition-all duration-200 ${
                       stlFormat === "binary"
-                        ? "text-text-primary border-primary-500 bg-primary-500/10"
-                        : "border-border bg-bg-tertiary text-text-muted hover:border-primary-500/50"
+                        ? "text-ink-primary border-primary-500 bg-primary-500/10"
+                        : "border-border bg-tertiary text-ink-muted hover:border-primary-500/50"
                     }`}
                   >
                     Binary
@@ -227,8 +227,8 @@ export function ExportProgressModal({
                     onClick={() => onSTLFormatChange("ascii")}
                     className={`flex-1 rounded-lg border-2 px-4 py-2 font-mono text-xs font-semibold transition-all duration-200 ${
                       stlFormat === "ascii"
-                        ? "text-text-primary border-primary-500 bg-primary-500/10"
-                        : "border-border bg-bg-tertiary text-text-muted hover:border-primary-500/50"
+                        ? "text-ink-primary border-primary-500 bg-primary-500/10"
+                        : "border-border bg-tertiary text-ink-muted hover:border-primary-500/50"
                     }`}
                   >
                     ASCII
@@ -240,7 +240,7 @@ export function ExportProgressModal({
             {/* Voxel Quality (only show for optimized mode and not processing) */}
             {!isComplete && !isProcessing && exportMode === "optimized" && (
               <div className="mb-6">
-                <p className="text-text-muted mb-3 font-mono text-xs font-bold tracking-wider uppercase">
+                <p className="text-ink-muted mb-3 font-mono text-xs font-bold tracking-wider uppercase">
                   Mesh Quality
                 </p>
                 <div className="flex gap-2">
@@ -248,8 +248,8 @@ export function ExportProgressModal({
                     onClick={() => onVoxelQualityChange("low")}
                     className={`flex-1 rounded-lg border-2 px-3 py-2 font-mono text-xs font-semibold transition-all duration-200 ${
                       voxelQuality === "low"
-                        ? "text-text-primary border-primary-500 bg-primary-500/10"
-                        : "border-border bg-bg-tertiary text-text-muted hover:border-primary-500/50"
+                        ? "text-ink-primary border-primary-500 bg-primary-500/10"
+                        : "border-border bg-tertiary text-ink-muted hover:border-primary-500/50"
                     }`}
                   >
                     Low
@@ -258,8 +258,8 @@ export function ExportProgressModal({
                     onClick={() => onVoxelQualityChange("medium")}
                     className={`flex-1 rounded-lg border-2 px-3 py-2 font-mono text-xs font-semibold transition-all duration-200 ${
                       voxelQuality === "medium"
-                        ? "text-text-primary border-primary-500 bg-primary-500/10"
-                        : "border-border bg-bg-tertiary text-text-muted hover:border-primary-500/50"
+                        ? "text-ink-primary border-primary-500 bg-primary-500/10"
+                        : "border-border bg-tertiary text-ink-muted hover:border-primary-500/50"
                     }`}
                   >
                     Medium
@@ -268,8 +268,8 @@ export function ExportProgressModal({
                     onClick={() => onVoxelQualityChange("ultra")}
                     className={`flex-1 rounded-lg border-2 px-3 py-2 font-mono text-xs font-semibold transition-all duration-200 ${
                       voxelQuality === "ultra"
-                        ? "text-text-primary border-primary-500 bg-primary-500/10"
-                        : "border-border bg-bg-tertiary text-text-muted hover:border-primary-500/50"
+                        ? "text-ink-primary border-primary-500 bg-primary-500/10"
+                        : "border-border bg-tertiary text-ink-muted hover:border-primary-500/50"
                     }`}
                   >
                     Ultra
@@ -282,13 +282,13 @@ export function ExportProgressModal({
             {!isComplete && isProcessing && (
               <>
                 {/* Stage Text */}
-                <Dialog.Description className="text-text-muted mb-4 font-mono text-sm">
+                <Dialog.Description className="text-ink-muted mb-4 font-mono text-sm">
                   {stage || "Processing..."}
                 </Dialog.Description>
 
                 {/* Radix UI Progress Bar */}
                 <Progress.Root
-                  className="bg-bg-tertiary relative mb-2 h-4 w-full overflow-hidden rounded-full shadow-inner"
+                  className="bg-tertiary relative mb-2 h-4 w-full overflow-hidden rounded-full shadow-inner"
                   value={progress}
                 >
                   <Progress.Indicator
@@ -298,7 +298,7 @@ export function ExportProgressModal({
                 </Progress.Root>
 
                 {/* Progress Percentage */}
-                <p className="text-text-primary mb-6 text-right font-mono text-sm font-bold">
+                <p className="text-ink-primary mb-6 text-right font-mono text-sm font-bold">
                   {progress.toFixed(0)}%
                 </p>
               </>
@@ -306,7 +306,7 @@ export function ExportProgressModal({
 
             {/* Complete Message */}
             {isComplete && (
-              <Dialog.Description className="text-text-muted mb-6 font-mono text-sm">
+              <Dialog.Description className="text-ink-muted mb-6 font-mono text-sm">
                 Your gear has been processed and is ready to download!
               </Dialog.Description>
             )}
@@ -324,7 +324,7 @@ export function ExportProgressModal({
                   <Dialog.Close asChild>
                     <button
                       onClick={onCancel}
-                      className="border-border bg-bg-tertiary text-text-muted hover:border-text-primary hover:bg-bg-primary hover:text-text-primary rounded-lg border px-4 py-3 font-mono text-sm font-semibold transition-all duration-200 hover:scale-105 active:scale-100"
+                      className="border-border bg-tertiary text-ink-muted hover:border-text-primary hover:bg-primary hover:text-ink-primary rounded-lg border px-4 py-3 font-mono text-sm font-semibold transition-all duration-200 hover:scale-105 active:scale-100"
                     >
                       Close
                     </button>
@@ -334,7 +334,7 @@ export function ExportProgressModal({
                 <Dialog.Close asChild>
                   <button
                     onClick={onCancel}
-                    className="border-border bg-bg-tertiary text-text-muted hover:border-text-primary hover:bg-bg-primary hover:text-text-primary w-full rounded-lg border px-4 py-3 font-mono text-sm font-semibold transition-all duration-200 hover:scale-105 active:scale-100"
+                    className="border-border bg-tertiary text-ink-muted hover:border-text-primary hover:bg-primary hover:text-ink-primary w-full rounded-lg border px-4 py-3 font-mono text-sm font-semibold transition-all duration-200 hover:scale-105 active:scale-100"
                   >
                     Cancel
                   </button>
@@ -350,7 +350,7 @@ export function ExportProgressModal({
                   <Dialog.Close asChild>
                     <button
                       onClick={onCancel}
-                      className="border-border bg-bg-tertiary text-text-muted hover:border-text-primary hover:bg-bg-primary hover:text-text-primary rounded-lg border px-4 py-3 font-mono text-sm font-semibold transition-all duration-200 hover:scale-105 active:scale-100"
+                      className="border-border bg-tertiary text-ink-muted hover:border-text-primary hover:bg-primary hover:text-ink-primary rounded-lg border px-4 py-3 font-mono text-sm font-semibold transition-all duration-200 hover:scale-105 active:scale-100"
                     >
                       Cancel
                     </button>

@@ -39,7 +39,16 @@ export default defineConfig(({ mode }) => ({
     },
   },
   ssr: {
-    noExternal: ["three", "three-bvh-csg", "three-mesh-bvh", "three-stdlib", "@react-three/fiber", "@react-three/drei", "zustand", "detect-gpu"],
+    noExternal: [
+      "three",
+      "three-bvh-csg",
+      "three-mesh-bvh",
+      "three-stdlib",
+      "@react-three/fiber",
+      "@react-three/drei",
+      "zustand",
+      "detect-gpu",
+    ],
   },
   worker: {
     format: "es", // Use ES modules for workers to support top-level await

@@ -1,4 +1,4 @@
-import { useId } from "react";
+import { useId, useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import * as Slider from "@radix-ui/react-slider";
 import type { GearParameterConfig } from "../types/gear.types";
@@ -10,24 +10,54 @@ interface ParameterInputProps {
 }
 
 export function ParameterInput({
-  config,
+  config: { key, label, min, max, step, unit, description, type, options },
   value,
   onChange,
 }: ParameterInputProps) {
   const inputId = useId();
-  const { key, label, min, max, step, unit, description, type, options } =
-    config;
+  const [inputValue, setInputValue] = useState(String(value));
+  const lastExternalValue = useRef(value);
+
+  useEffect(() => {
+    if (value !== lastExternalValue.current) {
+      setInputValue(String(value));
+      lastExternalValue.current = value;
+    }
+  }, [value]);
 
   const handleSliderChange = (values: number[]) => {
     onChange(key, values[0]);
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const newValue = parseFloat(e.target.value);
-    if (!isNaN(newValue) && min !== undefined && max !== undefined) {
-      onChange(key, Math.min(max, Math.max(min, newValue)));
+    const rawValue = e.target.value;
+    setInputValue(rawValue);
+
+    const newValue = parseFloat(rawValue);
+    if (!isNaN(newValue)) {
+      lastExternalValue.current = newValue;
+      onChange(key, newValue);
     }
   };
+
+  const handleInputBlur = () => {
+    // On blur, if empty or invalid, reset to current valid value
+    const parsedValue = parseFloat(inputValue);
+    if (isNaN(parsedValue) || inputValue === "") {
+      setInputValue(String(value));
+    }
+  };
+
+  // Check if the current value is out of range
+  const isOutOfRange =
+    typeof value === "number" &&
+    min !== undefined &&
+    max !== undefined &&
+    (value < min || value > max);
+
+  const errorMessage = isOutOfRange
+    ? `Value must be between ${min} and ${max}${unit ? ` ${unit}` : ""}`
+    : null;
 
   const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     onChange(key, e.target.value);
@@ -44,13 +74,13 @@ export function ParameterInput({
         <div className="mb-3 flex items-center justify-between">
           <label
             htmlFor={inputId}
-            className="text-text-primary font-mono text-sm font-semibold tracking-wide"
+            className="text-ink-primary font-mono text-sm font-semibold tracking-wide"
           >
             {label}
           </label>
           <select
             id={inputId}
-            className="focus:border-primary-500 focus:ring-primary-500/20 hover:border-primary-500 border-border bg-bg-tertiary text-text-primary min-w-50 cursor-pointer rounded border px-3 py-2 font-mono text-sm transition-all duration-200 focus:ring-2 focus:outline-none"
+            className="focus:border-primary-500 focus:ring-primary-500/20 hover:border-primary-500 border-border bg-tertiary text-ink-primary min-w-50 cursor-pointer rounded border px-3 py-2 font-mono text-sm transition-all duration-200 focus:ring-2 focus:outline-none"
             value={value as string}
             onChange={handleSelectChange}
           >
@@ -61,7 +91,7 @@ export function ParameterInput({
             ))}
           </select>
         </div>
-        <p className="text-text-muted text-xs leading-relaxed">{description}</p>
+        <p className="text-ink-muted text-xs leading-relaxed">{description}</p>
       </motion.div>
     );
   }
@@ -80,7 +110,7 @@ export function ParameterInput({
       <div className="mb-3 flex items-center justify-between">
         <label
           htmlFor={inputId}
-          className="text-text-primary font-mono text-sm font-semibold tracking-wide"
+          className="text-ink-primary font-mono text-sm font-semibold tracking-wide"
         >
           {label}
         </label>
@@ -88,17 +118,20 @@ export function ParameterInput({
           <input
             type="number"
             id={inputId}
-            className="focus:border-primary-500 focus:ring-primary-500/20 border-border bg-bg-tertiary text-text-primary w-20 rounded border px-3 py-2 text-right font-mono text-sm transition-all duration-200 focus:ring-2 focus:outline-none"
-            value={value}
+            className={`w-20 rounded border px-3 py-2 text-right font-mono text-sm transition-all duration-200 focus:ring-2 focus:outline-none ${
+              errorMessage
+                ? "border-red-500 bg-red-500/10 text-red-400 focus:border-red-500 focus:ring-red-500/20"
+                : "focus:border-primary-500 focus:ring-primary-500/20 border-border bg-tertiary text-ink-primary"
+            }`}
+            value={inputValue}
             onChange={handleInputChange}
+            onBlur={handleInputBlur}
             onClick={(e) => e.currentTarget.select()}
             onFocus={(e) => e.target.select()}
-            min={min}
-            max={max}
             step={step}
           />
           {unit && (
-            <span className="text-text-muted font-variant-numeric min-w-8 font-mono text-xs">
+            <span className="text-ink-muted font-variant-numeric min-w-8 font-mono text-xs">
               {unit}
             </span>
           )}
@@ -116,21 +149,25 @@ export function ParameterInput({
           step={step}
           aria-label={label}
         >
-          <Slider.Track className="bg-bg-tertiary relative h-1.5 grow rounded-full">
+          <Slider.Track className="bg-tertiary relative h-1.5 grow rounded-full">
             <Slider.Range className="bg-primary-500 absolute h-full rounded-full" />
           </Slider.Track>
           <Slider.Thumb
-            className="border-bg-primary bg-primary-500 block h-4 w-4 rounded-full border-2 shadow-lg transition-transform duration-150 hover:scale-110 focus:outline-none"
+            className="border-primary bg-primary-500 block h-4 w-4 rounded-full border-2 shadow-lg transition-transform duration-150 hover:scale-110 focus:outline-none"
             tabIndex={-1}
           />
         </Slider.Root>
-        <div className="text-text-muted mt-1 flex justify-between font-mono text-[0.625rem]">
+        <div className="text-ink-muted mt-1 flex justify-between font-mono text-[0.625rem]">
           <span>{min}</span>
           <span>{max}</span>
         </div>
       </div>
 
-      <p className="text-text-muted text-xs leading-relaxed">{description}</p>
+      {errorMessage ? (
+        <p className="text-xs leading-relaxed text-red-400">{errorMessage}</p>
+      ) : (
+        <p className="text-ink-muted text-xs leading-relaxed">{description}</p>
+      )}
     </motion.div>
   );
 }

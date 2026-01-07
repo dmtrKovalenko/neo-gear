@@ -63,7 +63,6 @@ export function ParameterPanel({
   };
 
   const dimensions = calcDimensions(params);
-
   const geo = calculateGearGeometryValues(params);
 
   // clearance = (pitchRadius - baseConstraintRadius) / module - 1.25 + profileShift
@@ -97,21 +96,21 @@ export function ParameterPanel({
   };
 
   return (
-    <div className="border-border bg-bg-secondary flex h-full w-96 flex-col border-r">
-      <div className="border-border border-b py-3 px-6">
+    <div className="border-border bg-secondary flex h-full w-96 flex-col border-r">
+      <div className="border-border border-b px-6 py-3">
         <div className="flex items-center gap-4">
           <motion.div
             initial={{ rotate: 0 }}
             animate={{ rotate: 360 }}
             transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
           >
-            <ion-icon name="cog-outline" class="text-[4rem] mt-0.5"></ion-icon>
+            <ion-icon name="cog-outline" class="mt-0.5 text-[4rem]"></ion-icon>
           </motion.div>
           <div>
-            <h1 className="text-text-primary font-mono text-3xl font-bold tracking-tight">
+            <h1 className="text-ink-primary font-mono text-3xl font-bold tracking-tight">
               NEO GEAR BTW
             </h1>
-            <p className="text-text-muted font-mono text-sm">
+            <p className="text-ink-muted font-mono text-sm">
               Parametric Gear Generator
             </p>
           </div>
@@ -127,7 +126,7 @@ export function ParameterPanel({
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: groupIndex * 0.1 }}
           >
-            <h2 className="text-text-muted mb-4 font-mono text-xs font-bold tracking-wider uppercase">
+            <h2 className="text-ink-muted mb-4 font-mono text-xs font-bold tracking-wider">
               {group.title}
             </h2>
             <div className="space-y-4">
@@ -170,64 +169,64 @@ export function ParameterPanel({
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4 }}
         >
-          <h2 className="text-text-muted mb-4 font-mono text-xs font-bold tracking-wider uppercase">
+          <h2 className="text-ink-muted mb-4 font-mono text-xs font-bold tracking-wider uppercase">
             Calculated Dimensions
           </h2>
           <div className="grid grid-cols-2 gap-3">
-            <div className="bg-bg-tertiary rounded p-3">
-              <span className="text-text-muted block font-mono text-xs">
+            <div className="bg-tertiary rounded p-3">
+              <span className="text-ink-muted block font-mono text-xs">
                 Pitch Diameter
               </span>
-              <span className="text-text-primary font-mono text-sm font-semibold">
+              <span className="text-ink-primary font-mono text-sm font-semibold">
                 {dimensions.pitchDiameter} mm
               </span>
             </div>
-            <div className="bg-bg-tertiary rounded p-3">
-              <span className="text-text-muted block font-mono text-xs">
+            <div className="bg-tertiary rounded p-3">
+              <span className="text-ink-muted block font-mono text-xs">
                 Outer Diameter
               </span>
-              <span className="text-text-primary font-mono text-sm font-semibold">
+              <span className="text-ink-primary font-mono text-sm font-semibold">
                 {dimensions.outerDiameter} mm
               </span>
             </div>
-            <div className="bg-bg-tertiary rounded p-3">
-              <span className="text-text-muted block font-mono text-xs">
+            <div className="bg-tertiary rounded p-3">
+              <span className="text-ink-muted block font-mono text-xs">
                 Root Diameter
               </span>
-              <span className="text-text-primary font-mono text-sm font-semibold">
+              <span className="text-ink-primary font-mono text-sm font-semibold">
                 {dimensions.rootDiameter} mm
               </span>
             </div>
-            <div className="bg-bg-tertiary rounded p-3">
-              <span className="text-text-muted block font-mono text-xs">
+            <div className="bg-tertiary rounded p-3">
+              <span className="text-ink-muted block font-mono text-xs">
                 Base Diameter
               </span>
-              <span className="text-text-primary font-mono text-sm font-semibold">
+              <span className="text-ink-primary font-mono text-sm font-semibold">
                 {dimensions.baseDiameter} mm
               </span>
             </div>
-            <div className="bg-bg-tertiary rounded p-3">
-              <span className="text-text-muted block font-mono text-xs">
+            <div className="bg-tertiary rounded p-3">
+              <span className="text-ink-muted block font-mono text-xs">
                 Tooth Height
               </span>
-              <span className="text-text-primary font-mono text-sm font-semibold">
+              <span className="text-ink-primary font-mono text-sm font-semibold">
                 {dimensions.toothHeight} mm
               </span>
             </div>
-            <div className="bg-bg-tertiary rounded p-3">
-              <span className="text-text-muted block font-mono text-xs">
+            <div className="bg-tertiary rounded p-3">
+              <span className="text-ink-muted block font-mono text-xs">
                 Circular Pitch
               </span>
-              <span className="text-text-primary font-mono text-sm font-semibold">
+              <span className="text-ink-primary font-mono text-sm font-semibold">
                 {dimensions.circularPitch} mm
               </span>
             </div>
             {params.holeType === "keyed" && (
-              <div className="bg-bg-tertiary rounded p-3">
-                <span className="text-text-muted block font-mono text-xs">
+              <div className="bg-tertiary rounded p-3">
+                <span className="text-ink-muted block font-mono text-xs">
                   Key Depth (calc)
                 </span>
-                <span className="text-text-primary font-mono text-sm font-semibold">
+                <span className="text-ink-primary font-mono text-sm font-semibold">
                   {(params.keyDepth > 0
                     ? params.keyDepth
                     : params.keyWidth * params.keyDepthRatio

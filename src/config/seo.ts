@@ -1,8 +1,10 @@
 export const seoConfig = {
-  title: "Neo Gear Btw - 3D Involute Gear Generator",
-  description: "Generate precision involute gears with real-time 3D visualization. Interactive gear generator with customizable parameters and STL export for 3D printing and CAD.",
-  keywords: "gear generator, involute gear, 3D gear, STL export, gear design, mechanical engineering, CAD tool, 3D printing, Neo Gear",
-  url: "https://dmtrkovalenko.dev",
+  title: "Neo Gear - parametric gear 3D generator",
+  description:
+    "Generate precision involute gears with real-time 3D visualization. Interactive gear generator with customizable parameters and STL or 3Mf export for 3D printing, CAD or CNC machining.",
+  keywords:
+    "gear generator, involute gear, 3D gear, STL, 3MF gear design, mechanical engineering, CAD tool, 3D printing, Neo Gear",
+  url: "https://gears.dmtrkovalenko.dev",
   ogImage: "/og-image.png",
 };
 

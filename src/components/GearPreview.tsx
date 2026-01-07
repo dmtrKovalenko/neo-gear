@@ -66,8 +66,8 @@ export const GearPreview = forwardRef<THREE.Mesh | null, GearPreviewProps>(
           <motion.button
             className={`flex h-10 w-10 items-center justify-center rounded-lg border transition-all duration-200 ${
               autoRotate
-                ? "text-bg-primary border-white bg-white"
-                : "hover:border-primary-500 hover:text-primary-500 border-border bg-bg-secondary text-text-primary"
+                ? "text-primary border-white bg-white"
+                : "hover:border-primary-500 hover:text-primary-500 border-border bg-secondary text-ink-primary"
             }`}
             onClick={toggleAutoRotate}
             whileHover={{ scale: 1.05 }}
@@ -80,8 +80,8 @@ export const GearPreview = forwardRef<THREE.Mesh | null, GearPreviewProps>(
           <motion.button
             className={`flex h-10 w-10 items-center justify-center rounded-lg border transition-all duration-200 ${
               showGrid
-                ? "text-bg-primary border-white bg-white"
-                : "hover:border-primary-500 hover:text-primary-500 border-border bg-bg-secondary text-text-primary"
+                ? "text-primary border-white bg-white"
+                : "hover:border-primary-500 hover:text-primary-500 border-border bg-secondary text-ink-primary"
             }`}
             onClick={toggleGrid}
             whileHover={{ scale: 1.05 }}
@@ -94,8 +94,8 @@ export const GearPreview = forwardRef<THREE.Mesh | null, GearPreviewProps>(
           <motion.button
             className={`flex h-10 w-10 items-center justify-center rounded-lg border transition-all duration-200 ${
               showAxes
-                ? "text-bg-primary border-white bg-white"
-                : "hover:border-primary-500 hover:text-primary-500 border-border bg-bg-secondary text-text-primary"
+                ? "text-primary border-white bg-white"
+                : "hover:border-primary-500 hover:text-primary-500 border-border bg-secondary text-ink-primary"
             }`}
             onClick={toggleAxes}
             whileHover={{ scale: 1.05 }}
@@ -111,8 +111,8 @@ export const GearPreview = forwardRef<THREE.Mesh | null, GearPreviewProps>(
           <motion.button
             className={`flex h-10 w-10 items-center justify-center rounded-lg border transition-all duration-200 ${
               showDimensions
-                ? "text-bg-primary border-white bg-white"
-                : "hover:border-primary-500 hover:text-primary-500 border-border bg-bg-secondary text-text-primary"
+                ? "text-primary border-white bg-white"
+                : "hover:border-primary-500 hover:text-primary-500 border-border bg-secondary text-ink-primary"
             }`}
             onClick={toggleDimensions}
             whileHover={{ scale: 1.05 }}
@@ -193,32 +193,32 @@ export const GearPreview = forwardRef<THREE.Mesh | null, GearPreviewProps>(
         </Canvas>
 
         <div className="absolute bottom-4 left-4 z-10 flex gap-3">
-          <div className="border-border bg-bg-secondary/90 rounded-lg border px-4 py-2 backdrop-blur-sm">
-            <span className="text-text-muted block font-mono text-xs">
+          <div className="border-border bg-secondary/90 rounded-lg border px-4 py-2 backdrop-blur-sm">
+            <span className="text-ink-muted block font-mono text-xs">
               Teeth
             </span>
             <span className="font-mono text-lg font-bold">
               {params.teethCount}
             </span>
           </div>
-          <div className="border-border bg-bg-secondary/90 rounded-lg border px-4 py-2 backdrop-blur-sm">
-            <span className="text-text-muted block font-mono text-xs">
+          <div className="border-border bg-secondary/90 rounded-lg border px-4 py-2 backdrop-blur-sm">
+            <span className="text-ink-muted block font-mono text-xs">
               Module
             </span>
             <span className="font-mono text-lg font-bold">
               {params.module}mm
             </span>
           </div>
-          <div className="border-border bg-bg-secondary/90 rounded-lg border px-4 py-2 backdrop-blur-sm">
-            <span className="text-text-muted block font-mono text-xs">
+          <div className="border-border bg-secondary/90 rounded-lg border px-4 py-2 backdrop-blur-sm">
+            <span className="text-ink-muted block font-mono text-xs">
               Pressure Angle
             </span>
             <span className="font-mono text-lg font-bold">
               {params.pressureAngle}°
             </span>
           </div>
-          <div className="border-border bg-bg-secondary/90 rounded-lg border px-4 py-2 backdrop-blur-sm">
-            <span className="text-text-muted block font-mono text-xs">
+          <div className="border-border bg-secondary/90 rounded-lg border px-4 py-2 backdrop-blur-sm">
+            <span className="text-ink-muted block font-mono text-xs">
               Pitch Diameter
             </span>
             <span className="font-mono text-lg font-bold">

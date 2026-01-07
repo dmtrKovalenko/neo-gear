@@ -166,10 +166,7 @@ function createGearShape(params: GearParameters): THREE.Shape {
 /**
  * Create D-shaft 2D profile shape
  */
-function createDShaftShape(
-  radius: number,
-  flatRatio = 0.15
-): THREE.Shape {
+function createDShaftShape(radius: number, flatRatio = 0.15): THREE.Shape {
   const shape = new THREE.Shape();
 
   // Flat position from center (how far into the circle the flat cuts)

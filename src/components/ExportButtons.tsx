@@ -163,7 +163,7 @@ export function ExportButtons({ meshRef, params }: ExportButtonsProps) {
 
   return (
     <div>
-      <p className="text-text-muted mb-3 font-mono text-xs font-bold tracking-wider uppercase">
+      <p className="text-ink-muted mb-3 font-mono text-xs font-bold tracking-wider uppercase">
         Export Model
       </p>
       <div className="flex gap-2">
@@ -179,7 +179,7 @@ export function ExportButtons({ meshRef, params }: ExportButtonsProps) {
         </motion.button>
 
         <motion.button
-          className="hover:border-primary-500 hover:text-primary-500 border-border bg-bg-tertiary text-text-primary flex flex-1 items-center justify-center gap-2 rounded-lg border px-4 py-3 font-mono text-sm font-semibold transition-all duration-200 disabled:cursor-not-allowed disabled:opacity-50"
+          className="hover:border-primary-500 hover:text-primary-500 border-border bg-tertiary text-ink-primary flex flex-1 items-center justify-center gap-2 rounded-lg border px-4 py-3 font-mono text-sm font-semibold transition-all duration-200 disabled:cursor-not-allowed disabled:opacity-50"
           onClick={() => handleStartExport("3mf")}
           disabled={showModal}
           whileHover={{ scale: 1.02 }}
